@@ -18,5 +18,10 @@ module.exports = {
       },
     },
   },
+  variants: {
+    extend: {
+      margin: ["first"], // enables to apply a different margin class to the first element in an interation
+    },
+  },
   plugins: [],
 };

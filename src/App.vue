@@ -5,7 +5,7 @@
  -->
 
 <template>
-  <MainNav company="Vue Careers!" />
+  <MainNav company="Vue Careers" />
 </template>
 
 <script>
