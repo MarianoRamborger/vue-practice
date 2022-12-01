@@ -1,5 +1,5 @@
 <template>
-  <header class="w-full text-sm">
+  <header :class="`w-full text-sm ${isLoggedIn ? 'h-32' : 'h-16'}`">
     <div class="fixed top-0 left-0 w-full h-16 bg-white">
       <div
         class="flex flex-nowrap h-full px-8 mx-auto border-b border-solid border-brand-gray-1"
@@ -23,15 +23,33 @@
             </li>
           </ul>
         </nav>
+        <div class="flex items-center h-full ml-auto">
+          <ProfileImage v-if="isLoggedIn" />
+          <ActionButton
+            v-else
+            text="Sign in"
+            variant="primary"
+            @:click="loginUser"
+          />
+        </div>
       </div>
+
+      <SubNav v-if="isLoggedIn" />
     </div>
   </header>
 </template>
 
 <script>
+import ActionButton from "@/components/Buttons/ActionButton.vue";
+import ProfileImage from "./ProfileImage/ProfileImage.vue";
+import SubNav from "./SubNav/SubNav.vue";
+
 //prettier-ignore
 export default {
   name: "MainNav", //name of component
+  components: {
+    ActionButton, ProfileImage, SubNav
+  },
   props: {
     company: {
       type: String,
@@ -45,9 +63,16 @@ export default {
       url: "https://careers.google.com/",
       menuItems: [
         'Teams','Locations', 'Life at Vue Practice','How we hire','Students', 'Jobs'
-      ]
-    };
+      ],
+      isLoggedIn: false,   
+
+    }
   },
+  methods: {
+      loginUser() { 
+        this.isLoggedIn = true}
+         //? use "this", to access properties within the component
+    },
 };
 </script>
 

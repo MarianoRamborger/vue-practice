@@ -47,4 +47,36 @@ describe("MainNav inj data async", () => {
     const navLiItems = wrapper.findAll("[data-test='main-nav-item']"); //!We are searching for any html attribute using []
     expect(navLiItems.length).toEqual(6);
   });
+
+  describe("User Logged out", () => {
+    it("prompts user to sign in", () => {
+      const wrapper = mount(MainNav, {
+        data() {
+          return {
+            isLoggedIn: false,
+          };
+        },
+      });
+      const logginButton = wrapper.findComponent({ name: "ActionButton" });
+      const profileImage = wrapper.findComponent({ name: "ProfileImage" });
+      expect(logginButton.exists()).toBe(true);
+      expect(profileImage.exists()).toBe(false);
+    });
+  });
+
+  describe("User logged in", () => {
+    it("displays user picture", () => {
+      const wrapper = mount(MainNav, {
+        data() {
+          return {
+            isLoggedIn: true,
+          };
+        },
+      });
+      const logginButton = wrapper.findComponent({ name: "ActionButton" });
+      const profileImage = wrapper.findComponent({ name: "ProfileImage" });
+      expect(logginButton.exists()).toBe(false);
+      expect(profileImage.exists()).toBe(true);
+    });
+  });
 });
