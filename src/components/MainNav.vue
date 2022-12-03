@@ -5,9 +5,12 @@
         class="flex flex-nowrap h-full px-8 mx-auto border-b border-solid border-brand-gray-1"
       >
         <!-- v-bind can bind to any valid html attribute   : is the shortened form of v-bind: -->
-        <a :href="url" class="flex items-center h-full text-xl font-bold">
+        <router-link
+          :to="{ name: 'Home' }"
+          class="flex items-center h-full text-xl font-bold"
+        >
           {{ company }}
-        </a>
+        </router-link>
         <nav class="h-full ml-12">
           <ul class="flex h-full p-0 m-0 list-none">
             <!-- prettier-ignore  a first:ml-0 would have sufficed since we added a variant to the tailwind.config that enables you to apply a different style to the first element. I wanted to play with conditional ternaries tho -->
@@ -17,9 +20,15 @@
               :class="`${index === 0 ? 'h-full ml-0' : 'h-full ml-9 '} `"
               data-test="main-nav-item"
             >
-              <a :href="index" class="flex items-center h-full py-2.5">
+              <router-link
+                :to="{ name: menuItem.url }"
+                class="flex items-center h-full py-2.5"
+              >
+                {{ menuItem.text }}
+              </router-link>
+              <!-- <a :href="index" class="flex items-center h-full py-2.5">
                 {{ menuItem }}
-              </a>
+              </a> -->
             </li>
           </ul>
         </nav>
@@ -61,10 +70,32 @@ export default {
     //? the data name is not optional.
     return {
       url: "https://careers.google.com/",
-      menuItems: [
-        'Teams','Locations', 'Life at Vue Practice','How we hire','Students', 'Jobs'
+      menuItems: 
+      [
+        {
+          text: 'Teams',
+          url: "Home"
+        },
+        {
+          text: 'Location',
+          url: "Home"
+        },
+        {
+          text: 'Life at Vue Practice',
+          url: "Home"
+        },
+        {
+          text: 'How we hire',
+          url: "Home"
+        },
+        {
+          text: 'Jobs',
+          url: "JobResults"
+        },
+        
+        // 'Locations', 'Life at Vue Practice','How we hire','Students', 'Jobs'
       ],
-      isLoggedIn: false,   
+      isLoggedIn: true,   
 
     }
   },
